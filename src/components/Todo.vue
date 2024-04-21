@@ -78,19 +78,18 @@ const dialog = ref(false);
 const title = ref('');
 const description = ref('');
 const store = useStore();
-
+// This function utilizes the Logout Endpoint to log out the user and then redirects them to the login page.
 const handleLogout = async () => {
   await store.dispatch('logout');
   router.push('/');
 };
-
+// This function utilizes the createItem Endpoint, which is used to create a new todo list against a specific user account.
 const handleCreate = async () => {
   try {
     const { success, item, error } = await store.dispatch('createItem', {
       title: title.value,
       description: description.value
     });
-
     if (success) {
       dialog.value = false;
       const itemId = item.item.id;
@@ -99,7 +98,6 @@ const handleCreate = async () => {
         title: title.value,
         description: description.value
       };
-
       store.state.todo_data.items.data.unshift(obj);
     } else {
       console.error('Error occurred while creating item:', error);
@@ -108,8 +106,6 @@ const handleCreate = async () => {
     console.error('Error occurred:', error);
   }
 };
-
-
 onMounted(() => {
   store.dispatch('fetchTodoItems');
 });

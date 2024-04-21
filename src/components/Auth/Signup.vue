@@ -8,10 +8,12 @@
     <v-row>
       <v-col xs12 sm8 md lg4>
         <v-card class="elevation-12">
+          <!-- Title for signup form -->
           <v-card-title class="bg-teal">
             SignUp Form
           </v-card-title>
           <v-card-text>
+            <!-- Form for Signup -->
             <v-form @submit.prevent="handleSignup">
               <v-alert
                 :value="err.length > 0"
@@ -31,6 +33,7 @@
                 variant="underlined"
                 v-model="email"
               ></v-text-field>
+              <!-- form field for signup -->
               <v-text-field
                 class="mt-2"
                 name="password"
@@ -48,6 +51,7 @@
                 v-model="password_confirmation"
               ></v-text-field>
               <v-col cols="12" sm="12" md="12" lg="12">
+                <!-- signup button for end the data -->
                 <v-btn
                   variant="tonal"
                   elevation="2"
@@ -60,6 +64,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-container class="text-center">
+              <!-- Button for redirect to the login form if user want -->
               <v-row>
                 <v-col cols="12" sm="12" md="12" lg="12">
                   <p>If you have Account Click here to <RouterLink to="/" class="text-teal">Login</RouterLink></p>
@@ -84,7 +89,7 @@ const password_confirmation = ref('');
 const err = ref([]);
 const store = useStore();
 const router = useRouter();
-
+// This function uses the Signup Endpoint. It also checks whether the user exists or not. If the user exists, it returns an error alert; otherwise, it moves to the login page.
 const handleSignup = async () => {
   try {
     const { success, data, error } = await store.dispatch('signup', {

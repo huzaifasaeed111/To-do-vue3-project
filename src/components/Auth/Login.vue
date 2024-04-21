@@ -8,10 +8,12 @@
    <v-row>
      <v-col xs12 sm8 md lg4>
        <v-card class="elevation-12">
+        <!-- Login form Title -->
          <v-card-title class="bg-teal">
            Login Form
          </v-card-title>
          <v-card-text>
+          <!-- login form content that contain input fields and submit button -->
            <v-form @submit.prevent="handleLogin">
             <v-alert
             color="red-darken-1"
@@ -47,6 +49,7 @@
          </v-card-text>
          <v-divider></v-divider>
          <v-card-actions>
+           <!-- content for redirecting to signup form -->
           <v-container class="text-center">
             <v-row>
               <v-col cols="12" sm="12" md="12" lg="12">
@@ -71,7 +74,7 @@
   const store = useStore();
   const router = useRouter();
   const err = reactive([]);
-
+  // this function used login endpoint, in which email and password data pass to endpoint. 
   const handleLogin = async () => {
     try {
       const { success, error} = await store.dispatch('login', {
@@ -81,6 +84,7 @@
       
       if (success) {
         await store.dispatch('fetchTodoItems', success.token);
+        // if endpoint provide result true then redirect to the todo page.
         router.push('/todo');
       } else {
         if (error.response.data.error) {
